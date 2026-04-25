@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMCN Council MCQ Practice Exam - Reproductive Health (100 Questions)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e94560;
+        }
+
+        h1 {
+            color: #e94560;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .exam-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .info-badge {
+            background: rgba(233, 69, 96, 0.2);
+            border: 1px solid #e94560;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+        }
+
+        .timer {
+            font-size: 1.5em;
+            color: #4ecdc4;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .timer.warning {
+            color: #ff6b6b;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #4ecdc4);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .question-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #e94560;
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            color: #e94560;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid transparent;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option:hover {
+            background: rgba(233, 69, 96, 0.1);
+            border-color: #e94560;
+        }
+
+        .option.selected {
+            border-color: #e94560;
+            background: rgba(233, 69, 96, 0.15);
+        }
+
+        .option.correct {
+            border-color: #4ecdc4;
+            background: rgba(78, 205, 196, 0.15);
+        }
+
+        .option.incorrect {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.15);
+        }
+
+        .option-letter {
+            background: #e94560;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .option.correct .option-letter {
+            background: #4ecdc4;
+        }
+
+        .option.incorrect .option-letter {
+            background: #ff6b6b;
+        }
+
+        .rationale {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #4ecdc4;
+            display: none;
+        }
+
+        .rationale.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .rationale-title {
+            color: #4ecdc4;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #e94560;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff6b6b;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #e0e0e0;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .results-screen.show {
+            display: block;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#4ecdc4 var(--score-deg), rgba(255,255,255,0.1) 0);
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: #1a1a2e;
+            border-radius: 50%;
+        }
+
+        .score-text {
+            position: relative;
+            z-index: 1;
+            font-size: 3em;
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+
+        .score-message {
+            font-size: 1.3em;
+            margin: 20px 0;
+        }
+
+        .review-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .review-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .review-correct {
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .review-incorrect {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .start-screen {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .start-screen h2 {
+            color: #e94560;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .topics-covered {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .topic-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #4ecdc4;
+        }
+
+        .instructions {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            color: #4ecdc4;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5em; }
+            .question-text { font-size: 1em; }
+            .exam-info { gap: 10px; }
+            .info-badge { font-size: 0.8em; padding: 6px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 NMCN COUNCIL MCQ EXAM</h1>
+            <p style="color: #a0a0a0; margin-top: 10px;">Reproductive Health - 100 Practice Questions</p>
+            <div class="exam-info">
+                <span class="info-badge">⏱️ 120 Minutes</span>
+                <span class="info-badge">📝 100 Questions</span>
+                <span class="info-badge">✅ 70% Pass Mark</span>
+            </div>
+        </header>
+
+        <!-- START SCREEN -->
+        <div class="start-screen" id="startScreen">
+            <h2>Ready to Test Your Knowledge?</h2>
+            <p style="color: #a0a0a0; margin-bottom: 30px;">This comprehensive practice exam covers all reproductive health topics for the NMCN Council examination.</p>
+            
+            <div class="topics-covered">
+                <div class="topic-item">🤰 Placenta Previa</div>
+                <div class="topic-item">🩸 Placenta Accreta Spectrum</div>
+                <div class="topic-item">💊 Family Planning</div>
+                <div class="topic-item">🧬 Embryology</div>
+                <div class="topic-item">👶 Pyloric Stenosis</div>
+                <div class="topic-item">🧠 Hydrocephalus</div>
+            </div>
+
+            <div class="instructions">
+                <h3>📋 Exam Instructions</h3>
+                <ul>
+                    <li>You have <strong>120 minutes</strong> to complete 100 questions</li>
+                    <li>Select the <strong>BEST</strong> answer for each question</li>
+                    <li>You can navigate between questions using Previous/Next buttons</li>
+                    <li>Click <strong>"Show Rationale"</strong> after answering to see explanations</li>
+                    <li>Your score will be calculated at the end</li>
+                    <li><strong>70% (70/100)</strong> is the passing mark</li>
+                </ul>
+            </div>
+
+            <button class="btn btn-primary" style="font-size: 1.2em; padding: 15px 50px; margin-top: 20px;" onclick="startExam()">
+                🚀 Start Exam
+            </button>
+        </div>
+
+        <!-- EXAM SCREEN -->
+        <div id="examScreen" style="display: none;">
+            <div class="timer" id="timer">120:00</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 1%"></div>
+            </div>
+            <div style="text-align: center; margin-bottom: 15px; color: #a0a0a0;">
+                Question <span id="currentQ">1</span> of 100
+            </div>
+
+            <div id="questionsContainer"></div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" disabled>← Previous</button>
+                <button class="btn btn-primary" id="showRationaleBtn" onclick="showRationale()">💡 Show Rationale</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Next →</button>
+            </div>
+        </div>
+
+        <!-- RESULTS SCREEN -->
+        <div class="results-screen" id="resultsScreen">
+            <h2 style="color: #e94560;">🎉 Exam Complete!</h2>
+            <div class="score-circle" id="scoreCircle">
+                <div class="score-text" id="scoreText">0%</div>
+            </div>
+            <div class="score-message" id="scoreMessage"></div>
+            <p style="color: #a0a0a0; margin: 15px 0;">
+                Correct: <span id="correctCount" style="color: #4ecdc4; font-weight: bold;">0</span> | 
+                Incorrect: <span id="incorrectCount" style="color: #ff6b6b; font-weight: bold;">0</span> | 
+                Unanswered: <span id="unansweredCount" style="color: #ffd93d; font-weight: bold;">0</span>
+            </p>
+            
+            <div class="review-section" id="reviewSection"></div>
+            
+            <button class="btn btn-primary" style="margin-top: 30px;" onclick="restartExam()">
+                🔄 Retake Exam
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ==================== QUESTION BANK (100 QUESTIONS) ====================
+        const questions = [
+            // PLACENTA PREVIA (Q1-15)
+            {
+                q: "A 28-year-old primigravida at 32 weeks gestation presents with sudden, painless, bright red vaginal bleeding. The most likely diagnosis is:",
+                options: ["Abruptio placentae", "Placenta previa", "Vasa previa", "Cervical ectropion"],
+                answer: 1,
+                rationale: "The classic triad of placenta previa is painless, bright red, sudden-onset vaginal bleeding in the third trimester. Abruptio placentae presents with painful bleeding. Vasa previa causes fetal bleeding with fetal bradycardia. Cervical ectropion causes spotting, not sudden heavy bleeding."
+            },
+            {
+                q: "Which of the following is an ABSOLUTE contraindication to performing a digital vaginal examination in a pregnant woman with third-trimester bleeding?",
+                options: ["Previous cesarean section", "Placenta previa not yet ruled out", "Rh-negative blood type", "Gestational diabetes"],
+                answer: 1,
+                rationale: "Digital vaginal examination is absolutely contraindicated until placenta previa is ruled out by ultrasound, as it can cause catastrophic hemorrhage by disrupting the placental attachment. The other options are not contraindications to vaginal examination."
+            },
+            {
+                q: "A pregnant woman is diagnosed with complete placenta previa at 36 weeks gestation with minimal bleeding. The most appropriate management is:",
+                options: ["Induction of labor", "Expectant management until 40 weeks", "Elective cesarean section at 37 weeks", "Trial of vaginal delivery"],
+                answer: 2,
+                rationale: "Complete placenta previa is an absolute indication for cesarean section. Delivery is typically planned at 36-37 weeks after antenatal corticosteroids. Vaginal delivery is contraindicated as the placenta completely covers the internal os."
+            },
+            {
+                q: "The gold standard diagnostic modality for placenta previa is:",
+                options: ["Digital vaginal examination", "Transabdominal ultrasound", "Transvaginal ultrasound", "MRI"],
+                answer: 2,
+                rationale: "Transvaginal ultrasound is the gold standard for diagnosing placenta previa. It is SAFE in experienced hands and more accurate than transabdominal ultrasound. MRI is reserved for complex cases or posterior placentas. Digital examination is contraindicated."
+            },
+            {
+                q: "Which type of placenta previa carries the HIGHEST risk of antepartum hemorrhage?",
+                options: ["Low-lying placenta", "Marginal placenta previa", "Partial placenta previa", "Complete placenta previa"],
+                answer: 3,
+                rationale: "Complete (total) placenta previa carries the highest risk of hemorrhage because the placenta completely covers the internal os, making any cervical changes likely to cause significant bleeding. Low-lying placenta carries the lowest risk."
+            },
+            {
+                q: "A 35-year-old G4P3 with three previous cesarean sections has placenta previa. What additional complication should the healthcare team be most concerned about?",
+                options: ["Preterm labor", "Placenta accreta spectrum", "Gestational diabetes", "Preeclampsia"],
+                answer: 1,
+                rationale: "Placenta previa + previous cesarean section is the strongest risk factor for placenta accreta spectrum. The risk increases dramatically with each additional C-section (up to 60-67% with ≥3 previous C-sections)."
+            },
+            {
+                q: "In the emergency management of a patient with active bleeding from placenta previa, which of the following is the FIRST priority?",
+                options: ["Prepare for emergency C-section", "Establish IV access with large-bore cannula", "Perform vaginal examination to assess bleeding", "Administer tocolytics"],
+                answer: 1,
+                rationale: "The first priority in active hemorrhage is establishing IV access for fluid resuscitation. Vaginal examination is contraindicated. Emergency C-section may be needed but requires stabilization first. Tocolytics are not indicated in active bleeding."
+            },
+            {
+                q: "Which of the following statements about placenta previa is CORRECT?",
+                options: ["It is more common in nulliparous women", "The first episode of bleeding is usually the most severe", "It is associated with male fetal sex", "The incidence increases with maternal age"],
+                answer: 3,
+                rationale: "Placenta previa incidence increases with advanced maternal age (>35 years) and multiparity. It is more common in multiparous women. The first bleeding episode (sentinel bleed) is usually small; subsequent episodes tend to be more severe. There is no association with fetal sex."
+            },
+            {
+                q: "A patient with placenta previa is being managed conservatively at 30 weeks gestation. Which medication should be administered if she is at risk of preterm delivery?",
+                options: ["Magnesium sulfate", "Betamethasone", "Nifedipine", "Indomethacin"],
+                answer: 1,
+                rationale: "Betamethasone (or dexamethasone) is given for fetal lung maturity if delivery is anticipated before 34 weeks. Magnesium sulfate is for neuroprotection if delivery <32 weeks. Nifedipine and indomethacin are tocolytics, not routinely used in bleeding placenta previa."
+            },
+            {
+                q: "The most common predisposing factor for placenta previa is:",
+                options: ["Advanced maternal age", "Previous cesarean section", "Multiple gestation", "Smoking"],
+                answer: 1,
+                rationale: "Previous cesarean section (and other uterine surgeries) is the most significant risk factor for placenta previa. Scar tissue in the upper uterine segment may lead to low implantation of the placenta in subsequent pregnancies."
+            },
+            {
+                q: "In placenta previa, the bleeding occurs due to:",
+                options: ["Rupture of uterine vessels", "Separation of placenta from uterine wall", "Tearing of placental attachment during lower segment formation", "Fetal vessel rupture"],
+                answer: 2,
+                rationale: "Bleeding in placenta previa occurs because the lower uterine segment forms and stretches in the third trimester, causing shearing forces that tear the placental attachment. This is different from abruption where bleeding occurs from uterine vessels."
+            },
+            {
+                q: "Which finding on ultrasound is MOST suggestive of placenta previa?",
+                options: ["Placental thickness >4cm", "Placenta covering the internal os", "Retroplacental hematoma", "Absence of retroplacental clear space"],
+                answer: 1,
+                rationale: "The defining feature of placenta previa is the placenta covering or reaching the internal cervical os. Retroplacental hematoma suggests abruption. Absence of retroplacental clear space suggests placenta accreta."
+            },
+            {
+                q: "A patient with marginal placenta previa has reached 38 weeks without bleeding. The placenta is 2.5cm from the internal os. Management should be:",
+                options: ["Elective C-section", "Induction of labor", "Trial of vaginal delivery", "Continue expectant management to 40 weeks"],
+                answer: 2,
+                rationale: "If the placental edge is >2cm from the internal os, vaginal delivery may be attempted. At 2.5cm, this patient may trial labor with careful monitoring. C-section is reserved for complete/partial previa or if bleeding occurs."
+            },
+            {
+                q: "Which of the following is NOT a risk factor for placenta previa?",
+                options: ["Multiparity", "Previous D&C", "Maternal smoking", "Young maternal age (<20 years)"],
+                answer: 3,
+                rationale: "Young maternal age is not a risk factor for placenta previa. Advanced maternal age (>35) is a risk factor. Multiparity, previous uterine surgery (including D&C), and smoking are all established risk factors."
+            },
+            {
+                q: "The nursing priority for a patient admitted with suspected placenta previa and active bleeding includes all EXCEPT:",
+                options: ["Continuous fetal monitoring", "Pad count to assess bleeding", "Vaginal examination to determine cervical dilation", "Preparation for possible emergency delivery"],
+                answer: 2,
+                rationale: "Vaginal examination is CONTRAINDICATED in suspected placenta previa until ruled out by ultrasound. All other options are appropriate nursing interventions: fetal monitoring, bleeding assessment, and preparation for emergency delivery."
+            },
+
+            // PLACENTA ACCRETA SPECTRUM (Q16-30)
+            {
+                q: "Placenta accreta is defined as abnormal adherence of the placenta to the myometrium due to:",
+                options: ["Excessive trophoblast invasion", "Defective decidua basalis", "Abnormal umbilical cord insertion", "Chronic placental inflammation"],
+                answer: 1,
+                rationale: "Placenta accreta spectrum occurs due to defective or absent decidua basalis, which normally limits trophoblast invasion. Without this barrier, trophoblasts attach directly to or invade the myometrium."
+            },
+            {
+                q: "Which of the following represents the correct progression of placental invasion depth?",
+                options: ["Accreta → Percreta → Increta", "Accreta → Increta → Percreta", "Increta → Accreta → Percreta", "Percreta → Increta → Accreta"],
+                answer: 1,
+                rationale: "The progression is: Accreta (attaches to myometrium) → Increta (invades INTO myometrium) → Percreta (penetrates THROUGH myometrium). Memory aid: A=Attaches, I=Into, P=Penetrates."
+            },
+            {
+                q: "The strongest risk factor for placenta accreta is:",
+                options: ["Advanced maternal age alone", "Placenta previa + previous cesarean section", "Multiparity alone", "Smoking"],
+                answer: 1,
+                rationale: "The combination of placenta previa AND previous cesarean section is the strongest risk factor. With 3+ previous C-sections and previa, the risk of accreta reaches 60-67%. Neither factor alone carries as high a risk."
+            },
+            {
+                q: "On ultrasound, the most common finding suggestive of placenta accreta is:",
+                options: ["Thick retroplacental clear space", "Loss of retroplacental clear space", "Placental thickness <3cm", "Anterior placenta"],
+                answer: 1,
+                rationale: "Loss of the retroplacental clear space (the hypoechoic zone between placenta and myometrium) is the most common ultrasound finding in placenta accreta. Other signs include placental lacunae (swiss cheese appearance) and myometrial thinning."
+            },
+            {
+                q: "A patient with suspected placenta percreta is found to have bladder wall invasion on MRI. Which organ is MOST commonly invaded in percreta?",
+                options: ["Rectum", "Ovary", "Bladder", "Appendix"],
+                answer: 2,
+                rationale: "The urinary bladder is the most commonly invaded organ in placenta percreta due to its anatomical proximity to the anterior lower uterine segment. This can cause hematuria and massive hemorrhage during delivery."
+            },
+            {
+                q: "The standard of care for managing placenta accreta at delivery is:",
+                options: ["Attempt manual removal of placenta", "Cesarean hysterectomy without removing placenta", "Conservative management with placental retention", "Oxytocin infusion to enhance placental separation"],
+                answer: 1,
+                rationale: "Cesarean hysterectomy with the placenta left in situ is the standard of care. Forcible removal of the placenta causes catastrophic hemorrhage. Conservative management (leaving placenta) may be used in select fertility-sparing cases but is not standard."
+            },
+            {
+                q: "Which of the following is an ABSOLUTE contraindication to conservative management of placenta accreta?",
+                options: ["Patient desire for future fertility", "Focal accreta", "Placenta percreta with bladder invasion", "Preoperative diagnosis"],
+                answer: 2,
+                rationale: "Placenta percreta with bladder invasion is a contraindication to conservative management due to the high risk of massive hemorrhage, infection, and organ damage. Conservative management may be considered for focal accreta in patients desiring fertility."
+            },
+            {
+                q: "The classic metabolic abnormality that must be corrected BEFORE surgery for placenta accreta is:",
+                options: ["Hypoglycemia", "Hypochloremic metabolic alkalosis", "Metabolic acidosis", "Hyperkalemia"],
+                answer: 1,
+                rationale: "This is a TRAP question! While hypochloremic metabolic alkalosis is associated with pyloric stenosis, placenta accreta surgery requires correction of anemia and preparation for massive transfusion. The key preoperative priority is multidisciplinary planning and blood product availability."
+            },
+            {
+                q: "A patient with placenta increta has placental invasion:",
+                options: ["Limited to the endometrium", "Into the myometrium but not through the serosa", "Through the full thickness of the uterus", "Into adjacent pelvic organs"],
+                answer: 1,
+                rationale: "Increta = invasion INTO the myometrium but NOT through the uterine serosa. Accreta is superficial attachment. Percreta penetrates through the serosa and may invade adjacent organs."
+            },
+            {
+                q: "The recurrence risk of placenta accreta in a subsequent pregnancy is approximately:",
+                options: ["1-2%", "5-10%", "10-25%", "50-75%"],
+                answer: 2,
+                rationale: "The recurrence risk of placenta accreta is 10-25%. This high recurrence rate necessitates careful counseling about future pregnancies and early referral to specialized centers."
+            },
+            {
+                q: "Which diagnostic modality is MOST accurate for assessing bladder invasion in suspected placenta percreta?",
+                options: ["Transabdominal ultrasound", "Transvaginal ultrasound", "MRI", "CT scan"],
+                answer: 2,
+                rationale: "MRI is superior to ultrasound for assessing the extent of invasion, particularly for posterior placentas and for evaluating bladder, parametrial, or bowel involvement. It provides better tissue contrast and multiplanar imaging."
+            },
+            {
+                q: "In placenta accreta, the decidua basalis is:",
+                options: ["Thickened", "Normal", "Defective or absent", "Calcified"],
+                answer: 2,
+                rationale: "In placenta accreta spectrum, the decidua basalis (the endometrial layer that normally limits trophoblast invasion) is defective or absent. This allows trophoblasts to attach to or invade the myometrium directly."
+            },
+            {
+                q: "The most common cause of death in patients with untreated placenta percreta is:",
+                options: ["Infection", "Pulmonary embolism", "Massive hemorrhage", "Amniotic fluid embolism"],
+                answer: 2,
+                rationale: "Massive obstetric hemorrhage is the leading cause of death in placenta percreta. Average blood loss can be 3,000-5,000ml or more. This underscores the need for delivery at tertiary centers with massive transfusion capabilities."
+            },
+            {
+                q: "A patient with placenta accreta is scheduled for delivery. At what gestational age is delivery typically planned?",
+                options: ["32-34 weeks", "34-36 weeks", "36-38 weeks", "38-40 weeks"],
+                answer: 1,
+                rationale: "Delivery is typically planned at 34-36 weeks after antenatal corticosteroids for fetal lung maturity. This balances the risks of prematurity against the increasing risk of catastrophic hemorrhage with advancing gestation."
+            },
+            {
+                q: "Which of the following is NOT part of the preoperative preparation for placenta accreta surgery?",
+                options: ["Type and crossmatch 4-6 units of blood", "Ureteral stent placement", "Vaginal examination to assess bleeding", "Anesthesia and ICU consultation"],
+                answer: 2,
+                rationale: "Vaginal examination is not part of the preparation and may precipitate bleeding. Ureteral stents may be placed to identify ureters during difficult dissection. Blood product availability, anesthesia planning, and ICU preparation are essential."
+            },
+
+            // FAMILY PLANNING (Q31-50)
+            {
+                q: "Which contraceptive method has the HIGHEST typical-use effectiveness rate?",
+                options: ["Combined oral contraceptive pills", "Male condom", "Copper IUD", "Implant (etonogestrel)"],
+                answer: 3,
+                rationale: "The implant (etonogestrel) and IUDs have >99% effectiveness. COCs are 91% with typical use. Male condoms are 85% with typical use. LARCs (long-acting reversible contraceptives) are the most effective reversible methods."
+            },
+            {
+                q: "A 38-year-old woman who smokes 20 cigarettes daily requests contraception. Which method is CONTRAINDICATED?",
+                options: ["Progestin-only pill", "Copper IUD", "Combined oral contraceptive pills", "Male condom"],
+                answer: 2,
+                rationale: "Smoking ≥15 cigarettes/day AND age ≥35 years is a WHO Category 4 (absolute contraindication) for combined hormonal contraceptives due to increased cardiovascular risk (thrombosis, stroke, MI). All other options are safe."
+            },
+            {
+                q: "The Lactational Amenorrhea Method (LAM) is effective ONLY if ALL of the following criteria are met EXCEPT:",
+                options: ["Amenorrhea (no menstruation)", "Baby is less than 6 months old", "Mother is exclusively breastfeeding day and night", "Mother is taking progestin-only pills"],
+                answer: 3,
+                rationale: "LAM requires three criteria: amenorrhea, exclusive breastfeeding (day and night), and baby <6 months. Taking progestin-only pills is NOT a criterion for LAM effectiveness; in fact, hormonal contraceptives are an alternative to LAM."
+            },
+            {
+                q: "Which emergency contraceptive method is MOST effective?",
+                options: ["Levonorgestrel 1.5mg", "Ulipristal acetate", "Yuzpe regimen", "Copper IUD insertion"],
+                answer: 3,
+                rationale: "Copper IUD insertion within 5 days is the most effective emergency contraceptive method (>99% effective). It also provides ongoing contraception. Ulipristal is more effective than levonorgestrel. The Yuzpe regimen (high-dose COCs) is least effective."
+            },
+            {
+                q: "A breastfeeding mother at 4 weeks postpartum wants contraception. Which is the BEST initial choice?",
+                options: ["Combined oral contraceptive pills", "Progestin-only pills", "Calendar method", "No method needed"],
+                answer: 1,
+                rationale: "Progestin-only pills are safe during breastfeeding and do not affect milk supply. Combined pills should be avoided in the first 6 weeks postpartum as estrogen may reduce milk production. LAM may still be effective if all criteria are met."
+            },
+            {
+                q: "Which condition is an ABSOLUTE contraindication to combined hormonal contraceptives?",
+                options: ["Breastfeeding", "Controlled hypertension", "Migraine with aura", "Age 35 alone"],
+                answer: 2,
+                rationale: "Migraine with aura is a WHO Category 4 (absolute contraindication) for combined hormonal contraceptives due to significantly increased stroke risk. Age 35 alone is not a contraindication. Controlled hypertension is Category 3. Breastfeeding is not a contraindication (but COCs may reduce milk)."
+            },
+            {
+                q: "The mechanism of action of combined oral contraceptive pills does NOT include:",
+                options: ["Inhibition of ovulation", "Thickening of cervical mucus", "Thinning of endometrium", "Prevention of fertilization"],
+                answer: 3,
+                rationale: "COCs work by inhibiting ovulation, thickening cervical mucus (impeding sperm entry), and thinning the endometrium (making implantation less likely). They do NOT prevent fertilization directly; this is a mechanism of barrier methods and copper IUDs."
+            },
+            {
+                q: "A woman takes levonorgestrel emergency contraception 72 hours after unprotected intercourse. The primary mechanism is:",
+                options: ["Disruption of implanted embryo", "Delay or inhibition of ovulation", "Alteration of tubal transport", "Endometrial destruction"],
+                answer: 1,
+                rationale: "Emergency contraception works primarily by delaying or inhibiting ovulation. It does NOT disrupt an implanted embryo (therefore NOT abortifacient). It may also affect tubal transport and endometrium, but ovulation inhibition is the primary mechanism."
+            },
+            {
+                q: "Which statement about IUDs is CORRECT?",
+                options: ["They cause infertility by damaging the endometrium", "They increase the risk of PID in all users", "Copper IUDs can be used for emergency contraception", "Hormonal IUDs increase menstrual bleeding"],
+                answer: 2,
+                rationale: "Copper IUDs can be used for emergency contraception up to 5 days after unprotected intercourse. IUDs do NOT cause infertility. PID risk is increased only in the first 20 days after insertion if STI is present. Hormonal IUDs DECREASE menstrual bleeding."
+            },
+            {
+                q: "The GATHER approach to contraceptive counseling includes all EXCEPT:",
+                options: ["Greet the client", "Ask about reproductive health needs", "Tell about all methods uniformly", "Help client choose appropriate method"],
+                answer: 2,
+                rationale: "GATHER stands for: Greet, Ask, Tell, Help, Explain, Return. The 'Tell' step involves providing tailored information about methods appropriate for the client's needs, NOT telling about all methods uniformly. Counseling should be individualized."
+            },
+            {
+                q: "A 25-year-old woman with a history of deep vein thrombosis requests contraception. Which method is MOST appropriate?",
+                options: ["Combined oral contraceptive pills", "Transdermal patch", "Copper IUD", "Vaginal ring"],
+                answer: 2,
+                rationale: "A history of thromboembolism is an absolute contraindication to estrogen-containing methods (COCs, patch, ring). The copper IUD is a safe, highly effective non-hormonal option. Progestin-only methods would also be acceptable."
+            },
+            {
+                q: "Which contraceptive method is associated with the highest risk of weight gain?",
+                options: ["Combined oral contraceptive pills", "Copper IUD", "DMPA (Depo-Provera)", "Progestin-only implant"],
+                answer: 2,
+                rationale: "DMPA (Depo-Provera) is associated with the most significant weight gain among contraceptives (average 2-5kg in first year). It also causes delayed return to fertility and bone density loss with long-term use."
+            },
+            {
+                q: "A woman using DMPA for 3 years should be counseled about:",
+                options: ["Need for monthly pregnancy tests", "Calcium and vitamin D supplementation", "Increased risk of ovarian cancer", "Requirement for annual pelvic exams"],
+                answer: 1,
+                rationale: "Long-term DMPA use (>2 years) is associated with decreased bone mineral density. Calcium and vitamin D supplementation is recommended. DMPA does not require monthly pregnancy tests, does not increase ovarian cancer risk (it actually reduces it), and does not require more frequent pelvic exams."
+            },
+            {
+                q: "The most common side effect of progestin-only contraceptive methods is:",
+                options: ["Thromboembolism", "Irregular bleeding or amenorrhea", "Severe acne", "Hirsutism"],
+                answer: 1,
+                rationale: "Irregular bleeding and amenorrhea are the most common side effects of progestin-only methods (POPs, DMPA, implant, hormonal IUD). These methods do NOT increase thromboembolism risk. Acne and hirsutism are not typical side effects."
+            },
+            {
+                q: "Vasectomy is preferred over tubal ligation because it is:",
+                options: ["More effective", "More easily reversible", "Safer, simpler, and more cost-effective", "Effective immediately"],
+                answer: 2,
+                rationale: "Vasectomy is safer, simpler, less expensive, and has fewer complications than tubal ligation. However, it is NOT effective immediately (needs 3 months/20 ejaculations + semen analysis). Reversal success is better for vasectomy than tubal ligation, but neither is guaranteed."
+            },
+            {
+                q: "Which statement about emergency contraception is FALSE?",
+                options: ["It can be used up to 5 days after intercourse", "It disrupts an established pregnancy", "It is less effective than regular contraception", "Copper IUD is the most effective method"],
+                answer: 1,
+                rationale: "Emergency contraception does NOT disrupt an established pregnancy (it is NOT abortifacient). It works before implantation. All other statements are true: copper IUD works up to 5 days, it is less effective than regular contraception, and copper IUD is most effective."
+            },
+            {
+                q: "A postpartum woman who is NOT breastfeeding can start combined oral contraceptives:",
+                options: ["Immediately after delivery", "After 21 days postpartum", "After 6 weeks postpartum", "After 6 months postpartum"],
+                answer: 1,
+                rationale: "For non-breastfeeding women, combined oral contraceptives can be started after 21 days postpartum. Before 21 days, the thrombosis risk is elevated. Breastfeeding women should wait 6 weeks for COCs (progestin-only can start earlier)."
+            },
+            {
+                q: "The primary mechanism of the copper IUD is:",
+                options: ["Prevention of ovulation", "Thickening of cervical mucus", "Spermicidal effect of copper ions", "Inhibition of implantation"],
+                answer: 2,
+                rationale: "The copper IUD works primarily through the spermicidal effect of copper ions and a foreign body reaction. It does NOT prevent ovulation (unlike hormonal methods). The inflammatory response is toxic to sperm and ova."
+            },
+            {
+                q: "Which contraceptive method provides protection against sexually transmitted infections?",
+                options: ["Oral contraceptive pills", "Copper IUD", "Male condom", "DMPA"],
+                answer: 2,
+                rationale: "Male (and female) condoms are the ONLY contraceptive methods that provide protection against STIs including HIV. All other methods provide NO STI protection. Dual protection (condom + another method) is recommended for STI prevention."
+            },
+            {
+                q: "A woman with BMI >80kg taking levonorgestrel emergency contraception should be advised that:",
+                options: ["It is equally effective at all weights", "She should take a double dose", "Efficacy may be reduced; consider copper IUD", "She should use ulipristal instead"],
+                answer: 2,
+                rationale: "Levonorgestrel efficacy may be reduced in women weighing >70-80kg. Ulipristal or copper IUD are preferred alternatives. The copper IUD remains highly effective regardless of weight. A double dose of levonorgestrel is not recommended."
+            },
+
+            // EMBRYOLOGY (Q51-65)
+            {
+                q: "The inner cell mass of the blastocyst gives rise to the:",
+                options: ["Placenta", "Amnion", "Embryo", "Chorion"],
+                answer: 2,
+                rationale: "The inner cell mass (embryoblast) gives rise to the embryo proper. The trophoblast (outer layer) gives rise to the placenta and chorion. The amnion develops from the epiblast layer of the embryoblast."
+            },
+            {
+                q: "Which germ layer gives rise to the heart and blood vessels?",
+                options: ["Ectoderm", "Mesoderm", "Endoderm", "Neural crest"],
+                answer: 1,
+                rationale: "The mesoderm gives rise to the cardiovascular system (heart, blood vessels, blood), muscles, bones, cartilage, connective tissue, kidneys, and gonads. Ectoderm forms the nervous system and skin epidermis. Endoderm forms the gut lining and associated glands."
+            },
+            {
+                q: "Neural tube closure begins at the:",
+                options: ["Cranial region", "Caudal region", "Cervical region", "Thoracic region"],
+                answer: 2,
+                rationale: "Neural tube closure begins at the cervical region and proceeds both cranially (toward the head) and caudally (toward the tail). The anterior neuropore closes around day 28, and the posterior neuropore closes around day 30."
+            },
+            {
+                q: "The 3rd pharyngeal pouch gives rise to:",
+                options: ["Superior parathyroids and thyroid C cells", "Inferior parathyroids and thymus", "Palatine tonsil", "Middle ear cavity"],
+                answer: 1,
+                rationale: "The 3rd pharyngeal pouch gives rise to the inferior parathyroids and the thymus. The 4th pouch gives rise to the superior parathyroids and ultimobranchial body (parafollicular C cells). The 2nd pouch forms the palatine tonsil. The 1st pouch forms the middle ear."
+            },
+            {
+                q: "DiGeorge syndrome results from abnormal development of the:",
+                options: ["1st and 2nd pharyngeal pouches", "3rd and 4th pharyngeal pouches", "Neural tube", "Primitive heart tube"],
+                answer: 1,
+                rationale: "DiGeorge syndrome (22q11.2 deletion) results from failure of development of the 3rd and 4th pharyngeal pouches. This leads to absence of the thymus (T-cell deficiency) and parathyroids (hypocalcemia), along with cardiac defects."
+            },
+            {
+                q: "The most susceptible period for teratogen-induced malformations is:",
+                options: ["Pre-implantation (week 1)", "Embryonic period (weeks 3-8)", "Fetal period (week 9 to birth)", "Perinatal period"],
+                answer: 1,
+                rationale: "The embryonic period (weeks 3-8) is the most susceptible period for teratogen-induced malformations because this is when major organs are forming (organogenesis). Before week 3, damage usually results in spontaneous abortion. After week 8, effects are mainly functional rather than structural."
+            },
+            {
+                q: "The ductus arteriosus closes after birth primarily due to:",
+                options: ["Decreased prostaglandins and increased oxygen", "Increased prostaglandins", "Decreased oxygen", "Maternal hormone withdrawal"],
+                answer: 0,
+                rationale: "The ductus arteriosus closes due to increased oxygen tension and decreased prostaglandin levels after birth. Prostaglandins (especially PGE1) maintain ductal patency in utero. This is why prostaglandin inhibitors (indomethacin) can be used to close a patent ductus arteriosus."
+            },
+            {
+                q: "Monochorionic twins are:",
+                options: ["Always dizygotic", "Always monozygotic", "Usually dizygotic", "Cannot be determined"],
+                answer: 1,
+                rationale: "Monochorionic twins are ALWAYS monozygotic (identical) because only a single fertilized egg can form a shared chorion. Dichorionic twins can be either monozygotic (split before day 3) or dizygotic (fraternal)."
+            },
+            {
+                q: "Folic acid supplementation should be started:",
+                options: ["As soon as pregnancy is confirmed", "At the first prenatal visit", "Before conception", "In the second trimester"],
+                answer: 2,
+                rationale: "Folic acid 400mcg daily should be started BEFORE conception and continued through the first trimester. This reduces the risk of neural tube defects by approximately 70%. By the time pregnancy is confirmed, the neural tube may already be closing (day 28)."
+            },
+            {
+                q: "The first organ system to begin functioning is the:",
+                options: ["Respiratory system", "Nervous system", "Cardiovascular system", "Gastrointestinal system"],
+                answer: 2,
+                rationale: "The heart is the first organ to begin functioning, starting to beat around day 22 of gestation. This occurs before most other organs have even formed. The primitive heart tube begins looping by week 4."
+            },
+            {
+                q: "The foramen ovale allows blood to flow from the:",
+                options: ["Right atrium to left atrium", "Left atrium to right atrium", "Right ventricle to left ventricle", "Pulmonary artery to aorta"],
+                answer: 0,
+                rationale: "The foramen ovale is an opening in the interatrial septum that allows oxygenated blood to flow from the right atrium to the left atrium, bypassing the pulmonary circulation in fetal life. After birth, it closes and becomes the fossa ovalis."
+            },
+            {
+                q: "The allantois gives rise to the:",
+                options: ["Urinary bladder", "Urachus (median umbilical ligament)", "Umbilical arteries", "Yolk sac"],
+                answer: 1,
+                rationale: "The allantois is a diverticulum from the yolk sac that extends into the connecting stalk. In humans, it becomes the urachus, which after birth becomes the median umbilical ligament. A patent urachus (urachal fistula) can cause urine to leak from the umbilicus."
+            },
+            {
+                q: "The paramesonephric (Müllerian) ducts develop into the following structures in females EXCEPT:",
+                options: ["Fallopian tubes", "Uterus", "Upper vagina", "Lower vagina"],
+                answer: 3,
+                rationale: "The lower vagina develops from the urogenital sinus (endodermal), NOT the Müllerian ducts. The Müllerian ducts form the fallopian tubes, uterus, cervix, and upper vagina. The lower vagina is formed by canalization of the sinovaginal bulbs."
+            },
+            {
+                q: "Sertoli cells in the testis produce which hormone responsible for regression of Müllerian ducts?",
+                options: ["Testosterone", "Dihydrotestosterone", "Müllerian inhibiting factor (MIF)", "Inhibin"],
+                answer: 2,
+                rationale: "Müllerian inhibiting factor (MIF), also called anti-Müllerian hormone (AMH), is produced by Sertoli cells and causes regression of the Müllerian ducts in male fetuses. Testosterone stabilizes the Wolffian ducts. Dihydrotestosterone masculinizes external genitalia."
+            },
+            {
+                q: "Twin-to-twin transfusion syndrome (TTTS) occurs in:",
+                options: ["All twin pregnancies", "Dichorionic-diamniotic twins", "Monochorionic-diamniotic twins", "Monochorionic-monoamniotic twins"],
+                answer: 2,
+                rationale: "TTTS occurs in monochorionic-diamniotic twins due to unbalanced blood flow through shared placental vascular anastomoses. One twin (donor) becomes hypovolemic and oliguric, while the other (recipient) becomes hypervolemic and polyuric."
+            },
+
+            // PYLORIC STENOSIS (Q66-80)
+            {
+                q: "The classic presentation of pyloric stenosis includes all EXCEPT:",
+                options: ["Non-bilious projectile vomiting", "Visible gastric peristalsis", "Bilious vomiting", "Palpable olive-shaped mass"],
+                answer: 2,
+                rationale: "Bilious vomiting is NOT a feature of pyloric stenosis because the obstruction is proximal to the bile duct insertion (duodenum). The vomiting is characteristically NON-bilious. Bilious vomiting in a newborn suggests a more distal obstruction (duodenal atresia, malrotation) and is a surgical emergency."
+            },
+            {
+                q: "The classic metabolic abnormality in pyloric stenosis is:",
+                options: ["Hyperchloremic metabolic acidosis", "Hypochloremic metabolic alkalosis", "Hyperkalemic metabolic acidosis", "Respiratory alkalosis"],
+                answer: 1,
+                rationale: "Pyloric stenosis causes hypochloremic, hypokalemic metabolic alkalosis due to loss of gastric acid (HCl) in vomitus. The kidneys attempt to conserve volume by reabsorbing sodium and excreting hydrogen ions, which paradoxically can lead to aciduria despite systemic alkalosis."
+            },
+            {
+                q: "A 4-week-old male infant presents with projectile non-bilious vomiting. The most likely diagnosis is:",
+                options: ["Duodenal atresia", "Intussusception", "Pyloric stenosis", "Hirschsprung disease"],
+                answer: 2,
+                rationale: "The classic presentation of pyloric stenosis is a 3-5 week old male infant with non-bilious projectile vomiting. Duodenal atresia causes bilious vomiting. Intussusception occurs in older infants (6-36 months) with currant jelly stool. Hirschsprung disease presents with constipation and failure to pass meconium."
+            },
+            {
+                q: "Before surgery for pyloric stenosis, the priority nursing intervention is:",
+                options: ["Immediate NG tube placement", "Correction of fluid and electrolyte abnormalities", "Preoperative antibiotics", "Blood transfusion"],
+                answer: 1,
+                rationale: "CORRECTION OF FLUID AND ELECTROLYTE ABNORMALITIES is the absolute priority before surgery. Operating on an alkalotic infant risks apnea and death. The metabolic alkalosis must be corrected with IV fluids (NS or D5NS) and potassium replacement."
+            },
+            {
+                q: "On ultrasound, pyloric stenosis is characterized by:",
+                options: ["Double bubble sign", "Target/donut sign", "Bird beak sign", "Coffee bean sign"],
+                answer: 1,
+                rationale: "The target or donut sign on transverse ultrasound view is characteristic of pyloric stenosis, showing the thickened pyloric muscle surrounding the mucosa. The double bubble sign is seen in duodenal atresia. Bird beak sign is achalasia. Coffee bean sign is sigmoid volvulus."
+            },
+            {
+                q: "The muscle thickness diagnostic of pyloric stenosis on ultrasound is:",
+                options: [">2mm", ">3mm", "≥4mm", ">5mm"],
+                answer: 2,
+                rationale: "A pyloric muscle thickness ≥4mm (or >3mm in some criteria) and a pyloric canal length ≥16mm are diagnostic of pyloric stenosis on ultrasound. Normal pyloric muscle thickness is <3mm and length <14mm."
+            },
+            {
+                q: "Postoperative vomiting after pyloromyotomy:",
+                options: ["Indicates surgical failure requiring immediate re-operation", "Is expected and usually resolves within 24-48 hours", "Should be treated with antiemetics only", "Is a sign of wound infection"],
+                answer: 1,
+                rationale: "Some vomiting is expected in the first 24-48 hours after pyloromyotomy due to edema at the operative site and gastric atony. This usually resolves with conservative management. Persistent vomiting beyond 48-72 hours may suggest incomplete myotomy."
+            },
+            {
+                q: "The surgical procedure of choice for pyloric stenosis is:",
+                options: ["Pyloroplasty", "Gastric bypass", "Ramstedt pyloromyotomy", "Pyloric dilation"],
+                answer: 2,
+                rationale: "Ramstedt pyloromyotomy is the standard surgical treatment. It involves a longitudinal incision through the hypertrophied pyloric muscle down to the mucosa, which is then spread to relieve the obstruction. It can be performed laparoscopically or open."
+            },
+            {
+                q: "Which of the following is a risk factor for pyloric stenosis?",
+                options: ["Female gender", "Breastfeeding", "Erythromycin exposure in first 2 weeks", "Third-born infant"],
+                answer: 2,
+                rationale: "Erythromycin exposure in the first 2 weeks of life increases the risk of pyloric stenosis. Other risk factors include male gender (4-6:1 ratio), first-born infants, bottle feeding, maternal smoking, and family history. Breastfeeding is protective."
+            },
+            {
+                q: "The earliest age at which pyloric stenosis typically presents is:",
+                options: ["At birth", "1-2 weeks", "2-3 weeks", "3-5 weeks"],
+                answer: 2,
+                rationale: "Pyloric stenosis typically presents at 2-8 weeks of age, with peak incidence at 3-5 weeks. It rarely presents before 2 weeks or after 12 weeks. Premature infants may present later based on corrected age."
+            },
+            {
+                q: "A 3-week-old infant with pyloric stenosis has serum chloride of 90 mEq/L and bicarbonate of 32 mEq/L. The most appropriate management is:",
+                options: ["Immediate pyloromyotomy", "IV fluids with potassium chloride", "Oral rehydration solution", "Barium swallow"],
+                answer: 1,
+                rationale: "The low chloride (90) and high bicarbonate (32) indicate hypochloremic metabolic alkalosis. Management is IV fluid resuscitation with normal saline and potassium chloride replacement. Surgery is deferred until electrolytes normalize (chloride >100, bicarbonate <28)."
+            },
+            {
+                q: "Jaundice in pyloric stenosis is caused by:",
+                options: ["Hemolysis", "Hepatocellular damage", "Hepatic glucuronyl transferase deficiency from starvation", "Biliary obstruction"],
+                answer: 2,
+                rationale: "Jaundice occurs in 2-5% of infants with pyloric stenosis due to hepatic glucuronyl transferase deficiency resulting from starvation and dehydration. It is an unconjugated hyperbilirubinemia that resolves with correction of the obstruction and hydration."
+            },
+            {
+                q: "Feeding after pyloromyotomy should be:",
+                options: ["Delayed for 48 hours", "Started immediately with full-strength formula", "Started within 4-24 hours with gradual advancement", "Withheld until bowel sounds return"],
+                answer: 2,
+                rationale: "Early feeding (within 4-24 hours) is now standard practice after pyloromyotomy. Feeds are started with clear liquids and advanced to half-strength then full-strength formula or breast milk. Small, frequent feeds are given initially."
+            },
+            {
+                q: "The most serious complication of uncorrected pyloric stenosis is:",
+                options: ["Pyloric perforation", "Severe dehydration and shock", "Gastric malignancy", "Chronic malnutrition"],
+                answer: 1,
+                rationale: "While chronic malnutrition can occur, the most serious acute complication is severe dehydration and shock from persistent vomiting and fluid/electrolyte losses. Pyloric perforation is extremely rare. Gastric malignancy is not a complication."
+            },
+            {
+                q: "Which vital sign change is MOST concerning in a patient with pyloric stenosis?",
+                options: ["Tachycardia", "Bradycardia with irregular respirations", "Hypertension", "Fever"],
+                answer: 1,
+                rationale: "Bradycardia with irregular respirations in a severely alkalotic infant may indicate apnea due to compensation for metabolic alkalosis (respiratory acidosis). This is a pre-arrest sign requiring immediate intervention. Tachycardia is expected with dehydration."
+            },
+
+            // HYDROCEPHALUS (Q81-95)
+            {
+                q: "Hydrocephalus ex-vacuo is characterized by:",
+                options: ["Increased intracranial pressure", "Ventricular enlargement due to brain atrophy", "Obstruction of CSF flow", "Impaired CSF absorption"],
+                answer: 1,
+                rationale: "Hydrocephalus ex-vacuo is NOT true hydrocephalus. It is compensatory ventricular enlargement due to brain tissue loss (atrophy), as seen in Alzheimer's disease, dementia, or stroke. There is NO increased ICP, and it does NOT require shunting."
+            },
+            {
+                q: "The classic triad of Normal Pressure Hydrocephalus (NPH) includes all EXCEPT:",
+                options: ["Urinary incontinence", "Dementia", "Gait apraxia", "Headache"],
+                answer: 3,
+                rationale: "The NPH triad is 'wet, wacky, wobbly': urinary incontinence (wet), dementia/cognitive decline (wacky), and gait apraxia (wobbly). Headache is NOT part of the triad because ICP is normal in NPH. Gait disturbance usually appears FIRST."
+            },
+            {
+                q: "The most effective emergency contraceptive method is:",
+                options: ["Levonorgestrel 1.5mg", "Ulipristal acetate", "Yuzpe regimen", "Copper IUD insertion"],
+                answer: 3,
+                rationale: "Copper IUD insertion within 5 days of unprotected intercourse is the most effective emergency contraceptive method (>99% effective). It also provides ongoing contraception. Ulipristal is more effective than levonorgestrel but less effective than copper IUD."
+            },
+            {
+                q: "A patient with aqueductal stenosis needs definitive treatment. The most appropriate procedure is:",
+                options: ["Ventriculoperitoneal shunt", "Endoscopic third ventriculostomy (ETV)", "Ventriculoatrial shunt", "Lumbar-peritoneal shunt"],
+                answer: 1,
+                rationale: "ETV is the preferred treatment for obstructive hydrocephalus due to aqueductal stenosis because it creates a bypass without foreign body implantation. It is NOT effective for communicating hydrocephalus. VP shunt is reserved for failed ETV or communicating hydrocephalus."
+            },
+            {
+                q: "Cushing's triad includes all EXCEPT:",
+                options: ["Hypertension", "Tachycardia", "Bradycardia", "Irregular respirations"],
+                answer: 1,
+                rationale: "Cushing's triad consists of: 1) systolic hypertension (with widened pulse pressure), 2) bradycardia, and 3) irregular respirations. TACHYCARDIA is NOT part of the triad. Cushing's triad indicates impending brainstem herniation and is a medical emergency."
+            },
+            {
+                q: "The most common complication of ventriculoperitoneal (VP) shunts is:",
+                options: ["Shunt obstruction", "Infection", "Subdural hematoma", "Seizures"],
+                answer: 1,
+                rationale: "Infection is the most common complication of VP shunts, typically occurring within the first few months. Staphylococcus epidermidis is the most common organism. Obstruction is also common but slightly less frequent than infection."
+            },
+            {
+                q: "A shunted patient presents with fever, headache, and lethargy. The shunt chamber does not refill when compressed. This suggests:",
+                options: ["Shunt infection only", "Shunt obstruction only", "Both infection and obstruction", "Normal shunt function"],
+                answer: 2,
+                rationale: "Fever + headache + lethargy suggests shunt infection. Non-refilling shunt chamber indicates obstruction. In VP shunts, infection and obstruction often COEXIST. Both require urgent evaluation, usually with shunt removal/externalization and IV antibiotics."
+            },
+            {
+                q: "The first-line imaging for hydrocephalus in infants is:",
+                options: ["CT head", "MRI brain", "Transfontanelle ultrasound", "Skull X-ray"],
+                answer: 2,
+                rationale: "Transfontanelle (cranial) ultrasound is the first-line imaging in infants because the open anterior fontanelle provides an acoustic window. It is non-invasive, radiation-free, and readily available. CT and MRI are used when ultrasound is insufficient."
+            },
+            {
+                q: "CSF is produced by the:",
+                options: ["Arachnoid granulations", "Ependymal cells", "Choroid plexus", "Pia mater"],
+                answer: 2,
+                rationale: "CSF is produced by the choroid plexus, primarily in the lateral ventricles. Arachnoid granulations are the sites of CSF absorption into the venous system. The total CSF volume is 125-150ml, and it is produced at approximately 500ml/day."
+            },
+            {
+                q: "Which type of hydrocephalus is caused by impaired CSF absorption at the arachnoid granulations?",
+                options: ["Non-communicating (obstructive)", "Communicating (non-obstructive)", "Ex-vacuo", "Normal pressure hydrocephalus"],
+                answer: 1,
+                rationale: "Communicating (non-obstructive) hydrocephalus is caused by impaired CSF absorption at the arachnoid granulations, despite free flow within the ventricular system. Causes include subarachnoid hemorrhage, meningitis, and venous sinus thrombosis."
+            },
+            {
+                q: "The position recommended for a patient with increased intracranial pressure is:",
+                options: ["Supine flat", "Head elevated 30 degrees", "Trendelenburg position", "Prone position"],
+                answer: 1,
+                rationale: "Head elevation at 30 degrees promotes cerebral venous drainage and reduces ICP. The head should be kept in a neutral position without neck flexion or rotation (which can impair jugular venous drainage). Avoid Trendelenburg (increases ICP)."
+            },
+            {
+                q: "Mannitol is used in acute hydrocephalus with herniation because it is:",
+                options: ["An osmotic diuretic that reduces brain edema", "A carbonic anhydrase inhibitor", "A loop diuretic", "A corticosteroid"],
+                answer: 0,
+                rationale: "Mannitol is an osmotic diuretic that draws fluid from the brain into the intravascular space, reducing cerebral edema and ICP. It is given as a rapid IV bolus. Nursing priorities include monitoring urine output and serum osmolality."
+            },
+            {
+                q: "A patient with NPH shows improvement after a lumbar puncture removing 50ml CSF. This is called:",
+                options: ["Shunt trial", "CSF tap test", "Lumbar drain trial", "Diagnostic infusion test"],
+                answer: 1,
+                rationale: "The CSF tap test (removing 30-50ml of CSF via lumbar puncture) is both diagnostic and prognostic for NPH. If gait improves after the tap, the patient is likely to respond to ventriculoperitoneal shunting. This is a key diagnostic step before shunt placement."
+            },
+            {
+                q: "Which of the following is NOT a fetal shunt?",
+                options: ["Ductus venosus", "Foramen ovale", "Ductus arteriosus", "Fossa ovalis"],
+                answer: 3,
+                rationale: "The fossa ovalis is the adult remnant of the foramen ovale, NOT a fetal shunt. Fetal shunts include: ductus venosus (bypasses liver), foramen ovale (R→L atrial shunt), and ductus arteriosus (bypasses lungs). These close after birth."
+            },
+            {
+                q: "The most common cause of congenital hydrocephalus is:",
+                options: ["Dandy-Walker malformation", "Aqueductal stenosis", "Chiari malformation", "Neural tube defect"],
+                answer: 1,
+                rationale: "Aqueductal stenosis (narrowing of the cerebral aqueduct between the 3rd and 4th ventricles) is the most common cause of congenital obstructive hydrocephalus. It can be due to intrinsic narrowing, gliosis, or compression by adjacent structures."
+            },
+
+            // MIXED/INTEGRATED (Q96-100)
+            {
+                q: "A 30-year-old woman with placenta previa and two previous C-sections is at highest risk for:",
+                options: ["Preterm labor", "Placenta accreta", "Gestational diabetes", "Preeclampsia"],
+                answer: 1,
+                rationale: "Placenta previa + previous cesarean section is the strongest risk factor for placenta accreta spectrum. With 2 previous C-sections and previa, the risk is approximately 40%. This requires careful prenatal evaluation with ultrasound/MRI and delivery planning."
+            },
+            {
+                q: "A breastfeeding mother asks about emergency contraception. Which is MOST appropriate?",
+                options: ["Combined oral contraceptive pills", "Levonorgestrel", "Ulipristal acetate", "Copper IUD"],
+                answer: 1,
+                rationale: "Levonorgestrel emergency contraception is preferred for breastfeeding women as it does not affect milk supply. Ulipristal may require temporary pumping and discarding. Copper IUD is also appropriate but more invasive. Combined pills are contraindicated early postpartum."
+            },
+            {
+                q: "The embryological structure that becomes the median umbilical ligament is the:",
+                options: ["Umbilical vein", "Umbilical arteries", "Urachus", "Yolk sac"],
+                answer: 2,
+                rationale: "The urachus (a remnant of the allantois) becomes the median umbilical ligament. The umbilical vein becomes the ligamentum teres (round ligament of liver). The umbilical arteries become the medial umbilical ligaments."
+            },
+            {
+                q: "A newborn fails to pass meconium within 48 hours. The most likely diagnosis is:",
+                options: ["Pyloric stenosis", "Hirschsprung disease", "Duodenal atresia", "Malrotation"],
+                answer: 1,
+                rationale: "Hirschsprung disease (aganglionic megacolon) presents with failure to pass meconium within 48 hours, constipation, and abdominal distension. Pyloric stenosis presents at 3-5 weeks with vomiting. Duodenal atresia causes bilious vomiting. Malrotation presents with bilious vomiting."
+            },
+            {
+                q: "A patient with a VP shunt presents with headache, vomiting, and decreased level of consciousness. The MOST appropriate initial action is:",
+                options: ["Administer antibiotics immediately", "Obtain CT head to assess ventricle size", "Perform lumbar puncture", "Remove the shunt immediately"],
+                answer: 1,
+                rationale: "CT head is the most appropriate initial investigation to differentiate shunt malfunction (ventriculomegaly) from shunt infection with obstruction. This guides further management. Lumbar puncture is contraindicated in obstructive hydrocephalus. Antibiotics and shunt removal may follow based on CT findings."
+            }
+        ];
+
+        // ==================== EXAM LOGIC ====================
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let timeRemaining = 120 * 60; // 120 minutes in seconds
+        let timerInterval;
+        let examStarted = false;
+
+        function startExam() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('examScreen').style.display = 'block';
+            examStarted = true;
+            renderQuestion();
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeRemaining < 600) { // Less than 10 minutes
+                timerEl.classList.add('warning');
+            }
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            const container = document.getElementById('questionsContainer');
+            
+            let optionsHTML = '';
+            q.options.forEach((opt, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                const selected = userAnswers[currentQuestion] === idx ? 'selected' : '';
+                optionsHTML += `
+                    <div class="option ${selected}" onclick="selectOption(${idx})">
+                        <div class="option-letter">${letter}</div>
+                        <div>${opt}</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="question-card active">
+                    <div class="question-number">Question ${currentQuestion + 1}</div>
+                    <div class="question-text">${q.q}</div>
+                    <div class="options">${optionsHTML}</div>
+                    <div class="rationale" id="rationale${currentQuestion}">
+                        <div class="rationale-title">✅ Correct Answer: ${String.fromCharCode(65 + q.answer)}</div>
+                        <div>${q.rationale}</div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('progressBar').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish Exam' : 'Next →';
+            
+            // Hide rationale by default
+            document.getElementById(`rationale${currentQuestion}`).classList.remove('show');
+        }
+
+        function selectOption(idx) {
+            if (!examStarted) return;
+            
+            userAnswers[currentQuestion] = idx;
+            
+            // Update visual selection
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected');
+                if (i === idx) opt.classList.add('selected');
+            });
+        }
+
+        function showRationale() {
+            const rationaleEl = document.getElementById(`rationale${currentQuestion}`);
+            rationaleEl.classList.toggle('show');
+            
+            // Highlight correct/incorrect if answered
+            if (userAnswers[currentQuestion] !== null) {
+                const options = document.querySelectorAll('.option');
+                const q = questions[currentQuestion];
+                
+                options.forEach((opt, idx) => {
+                    if (idx === q.answer) {
+                        opt.classList.add('correct');
+                    } else if (idx === userAnswers[currentQuestion] && idx !== q.answer) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                finishExam();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function finishExam() {
+            clearInterval(timerInterval);
+            document.getElementById('examScreen').style.display = 'none';
+            document.getElementById('resultsScreen').classList.add('show');
+            
+            let correct = 0;
+            let incorrect = 0;
+            let unanswered = 0;
+            
+            userAnswers.forEach((ans, idx) => {
+                if (ans === null) unanswered++;
+                else if (ans === questions[idx].answer) correct++;
+                else incorrect++;
+            });
+            
+            const percentage = Math.round((correct / questions.length) * 100);
+            
+            document.getElementById('scoreText').textContent = `${percentage}%`;
+            document.getElementById('scoreCircle').style.setProperty('--score-deg', `${percentage * 3.6}deg`);
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+            document.getElementById('unansweredCount').textContent = unanswered;
+            
+            let message = '';
+            if (percentage >= 70) {
+                message = `🎉 Congratulations! You PASSED with ${percentage}%!`;
+                document.getElementById('scoreMessage').style.color = '#4ecdc4';
+            } else {
+                message = `📚 Keep studying! You scored ${percentage}%. The passing mark is 70%.`;
+                document.getElementById('scoreMessage').style.color = '#ff6b6b';
+            }
+            document.getElementById('scoreMessage').textContent = message;
+            
+            // Generate review
+            let reviewHTML = '<h3 style="color: #e94560; margin-bottom: 20px;">📋 Question Review</h3>';
+            questions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.answer;
+                const statusClass = userAns === null ? 'review-incorrect' : (isCorrect ? 'review-correct' : 'review-incorrect');
+                const statusIcon = userAns === null ? '⚪' : (isCorrect ? '✅' : '❌');
+                
+                reviewHTML += `
+                    <div class="review-item ${statusClass}">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <strong>Q${idx + 1}: ${statusIcon}</strong>
+                            <span style="color: ${isCorrect ? '#4ecdc4' : '#ff6b6b'}; font-size: 0.9em;">
+                                ${userAns === null ? 'Unanswered' : (isCorrect ? 'Correct' : 'Incorrect')}
+                            </span>
+                        </div>
+                        <div style="margin-top: 8px; color: #a0a0a0; font-size: 0.9em;">
+                            Your answer: ${userAns !== null ? String.fromCharCode(65 + userAns) : '-'} | 
+                            Correct: ${String.fromCharCode(65 + q.answer)}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('reviewSection').innerHTML = reviewHTML;
+        }
+
+        function restartExam() {
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            timeRemaining = 120 * 60;
+            examStarted = false;
+            
+            document.getElementById('resultsScreen').classList.remove('show');
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('timer').classList.remove('warning');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!examStarted) return;
+            
+            if (e.key >= '1' && e.key <= '4') {
+                const optIdx = parseInt(e.key) - 1;
+                if (optIdx < questions[currentQuestion].options.length) {
+                    selectOption(optIdx);
+                }
+            } else if (e.key === 'ArrowRight' || e.key === 'Enter') {
+                nextQuestion();
+            } else if (e.key === 'ArrowLeft') {
+                prevQuestion();
+            } else if (e.key === 'r' || e.key === 'R') {
+                showRationale();
+            }
+        });
+    </script>
+</body>
+</html>
